@@ -3,11 +3,16 @@
    =================================== */
 
 :root {
-    /* Hero/Welcome Scene Colors */
-    --hero-navy: #0A1828;
-    --hero-rose-gold: #B76E79;
-    --hero-cream: #FAF8F3;
-    --hero-terracotta: #D4A373;
+    /* Neumorphic Base Colors - Warm & Intimate */
+    --neuro-bg: #E8E4E0;
+    --neuro-bg-light: #F5F2EE;
+    --neuro-bg-dark: #D4CFC9;
+    --neuro-shadow-light: rgba(255, 255, 255, 0.9);
+    --neuro-shadow-dark: rgba(163, 151, 140, 0.4);
+    --neuro-accent: #C9A57B;
+    --neuro-accent-soft: #E6D5C3;
+    --neuro-text: #5A4A42;
+    --neuro-text-light: #8B7968;
     
     /* Haldi Ceremony Colors */
     --haldi-marigold: #F4A460;
@@ -52,12 +57,12 @@
     --gray-800: #2D3748;
     --gray-900: #1A202C;
     
-    /* Typography - Elegant & Refined */
-    --font-heading: 'Cinzel', serif;
-    --font-subheading: 'Playfair Display', serif;
-    --font-body: 'Cormorant Garamond', serif;
-    --font-script: 'Tangerine', cursive;
-    --font-accent: 'Italiana', serif;
+    /* Typography - Warm & Intimate */
+    --font-heading: 'Playfair Display', serif;
+    --font-subheading: 'Lora', serif;
+    --font-body: 'Inter', sans-serif;
+    --font-script: 'Sacramento', cursive;
+    --font-accent: 'Cormorant Garamond', serif;
     --font-hindi: 'Noto Sans Devanagari', sans-serif;
     --font-telugu: 'Noto Sans Telugu', sans-serif;
     
