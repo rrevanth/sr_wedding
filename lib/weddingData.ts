@@ -13,14 +13,14 @@ export const weddingPages: WeddingPage[] = [
   // Page 0: Blank cover (hidden)
   {
     type: 'image',
-    content: '/assets/images/intro.png',
+    content: '/assets/images/cover.png',
     alt: 'Cover',
   },
   
   // Page 1: Intro Image (Left)
   {
     type: 'image',
-    content: '/assets/images/cover.png',
+    content: '/assets/images/intro.png',
     alt: 'Wedding Invitation',
   },
   
