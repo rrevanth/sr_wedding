@@ -13,10 +13,74 @@ declare global {
 export default function FlipBook() {
   const bookRef = useRef<HTMLDivElement>(null);
   const pageFlipRef = useRef<any>(null);
-  const audioContextRef = useRef<AudioContext | null>(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
   const [currentPage, setCurrentPage] = useState(0);
   const [isLibraryLoaded, setIsLibraryLoaded] = useState(false);
   const [totalPages, setTotalPages] = useState(0);
+  const [dimensions, setDimensions] = useState({ width: 550, height: 733 });
+
+  // Calculate responsive dimensions based on viewport
+  const calculateDimensions = () => {
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
+    
+    let width: number;
+    let height: number;
+    
+    // Mobile devices (< 768px)
+    if (viewportWidth < 768) {
+      // Single page view on mobile, use most of the width with padding
+      width = Math.min(viewportWidth * 0.85, 400);
+      height = width * 1.33; // Maintain 3:4 aspect ratio
+    }
+    // Tablet devices (768px - 1024px)
+    else if (viewportWidth < 1024) {
+      width = Math.min(viewportWidth * 0.4, 450);
+      height = width * 1.33;
+    }
+    // Desktop devices (>= 1024px)
+    else {
+      width = Math.min(viewportWidth * 0.35, 550);
+      height = width * 1.33;
+    }
+    
+    // Ensure dimensions don't exceed viewport height (with some padding)
+    const maxHeight = viewportHeight * 0.7;
+    if (height > maxHeight) {
+      height = maxHeight;
+      width = height / 1.33;
+    }
+    
+    // Set minimum dimensions
+    width = Math.max(width, 280);
+    height = Math.max(height, 373);
+    
+    return { width: Math.round(width), height: Math.round(height) };
+  };
+
+  // Handle window resize with debouncing
+  useEffect(() => {
+    const handleResize = () => {
+      const newDimensions = calculateDimensions();
+      setDimensions(newDimensions);
+    };
+
+    // Set initial dimensions
+    handleResize();
+
+    // Debounce resize events
+    let timeoutId: NodeJS.Timeout;
+    const debouncedResize = () => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(handleResize, 250);
+    };
+
+    window.addEventListener('resize', debouncedResize);
+    return () => {
+      window.removeEventListener('resize', debouncedResize);
+      clearTimeout(timeoutId);
+    };
+  }, []);
 
   // Initialize StPageFlip
   useEffect(() => {
@@ -27,26 +91,28 @@ export default function FlipBook() {
 
     try {
       const St = window.St;
+      const isMobile = window.innerWidth < 768;
+      
       pageFlipRef.current = new St.PageFlip(bookRef.current, {
-        width: 550,
-        height: 733,
+        width: dimensions.width,
+        height: dimensions.height,
         size: 'stretch',
-        minWidth: 315,
-        maxWidth: 1000,
-        minHeight: 420,
-        maxHeight: 1350,
+        minWidth: Math.round(dimensions.width * 0.6),
+        maxWidth: Math.round(dimensions.width * 1.8),
+        minHeight: Math.round(dimensions.height * 0.6),
+        maxHeight: Math.round(dimensions.height * 1.8),
         maxShadowOpacity: 0.5,
         showCover: true,
         mobileScrollSupport: false,
-        swipeDistance: 30,
+        swipeDistance: isMobile ? 20 : 30,
         clickEventForward: true,
-        usePortrait: true,
+        usePortrait: isMobile,
         startPage: 1,
         drawShadow: true,
-        flippingTime: 1000,
+        flippingTime: isMobile ? 800 : 1000,
         useMouseEvents: true,
         autoSize: true,
-        showPageCorners: true,
+        showPageCorners: !isMobile,
         disableFlipByClick: false,
       });
 
@@ -58,7 +124,7 @@ export default function FlipBook() {
         playPageTurnSound();
       });
 
-      console.log('FlipBook initialized');
+      console.log('FlipBook initialized with dimensions:', dimensions);
     } catch (error) {
       console.error('Error initializing FlipBook:', error);
     }
@@ -68,26 +134,20 @@ export default function FlipBook() {
         pageFlipRef.current.destroy?.();
       }
     };
-  }, [isLibraryLoaded]);
+  }, [isLibraryLoaded, dimensions]);
 
-  // Initialize audio context
+  // Initialize audio element
   useEffect(() => {
-    const initAudio = () => {
-      if (!audioContextRef.current) {
-        try {
-          audioContextRef.current = new (window.AudioContext || (window as any).webkitAudioContext)();
-        } catch (e) {
-          console.warn('Web Audio API not supported', e);
-        }
-      }
-    };
-
-    document.addEventListener('click', initAudio, { once: true });
-    document.addEventListener('touchstart', initAudio, { once: true });
-
+    // Create audio element for page flip sound
+    audioRef.current = new Audio('/assets/page-flip.mp3');
+    audioRef.current.volume = 0.5; // Set volume to 50%
+    audioRef.current.preload = 'auto';
+    
     return () => {
-      document.removeEventListener('click', initAudio);
-      document.removeEventListener('touchstart', initAudio);
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current = null;
+      }
     };
   }, []);
 
@@ -116,28 +176,15 @@ export default function FlipBook() {
   }, [totalPages]);
 
   const playPageTurnSound = () => {
-    if (!audioContextRef.current) return;
+    if (!audioRef.current) return;
 
     try {
-      const now = audioContextRef.current.currentTime;
-
-      // Whoosh sound
-      const oscillator = audioContextRef.current.createOscillator();
-      const gainNode = audioContextRef.current.createGain();
-
-      oscillator.connect(gainNode);
-      gainNode.connect(audioContextRef.current.destination);
-
-      oscillator.type = 'sine';
-      oscillator.frequency.setValueAtTime(800, now);
-      oscillator.frequency.exponentialRampToValueAtTime(200, now + 0.15);
-
-      gainNode.gain.setValueAtTime(0, now);
-      gainNode.gain.linearRampToValueAtTime(0.08, now + 0.02);
-      gainNode.gain.exponentialRampToValueAtTime(0.01, now + 0.15);
-
-      oscillator.start(now);
-      oscillator.stop(now + 0.15);
+      // Reset audio to beginning and play
+      audioRef.current.currentTime = 0;
+      audioRef.current.play().catch((e) => {
+        // Ignore autoplay errors (browser may block autoplay)
+        console.debug('Audio play prevented:', e);
+      });
     } catch (e) {
       console.warn('Error playing sound:', e);
     }
@@ -166,7 +213,7 @@ export default function FlipBook() {
         onLoad={() => setIsLibraryLoaded(true)}
       />
 
-      <div className="flipbook-container max-w-[1400px] mx-auto p-0">
+      <div className="flipbook-container max-w-[1400px] mx-auto p-0 px-4 sm:px-6">
         <div ref={bookRef} id="book" className="book-wrapper">
           {weddingPages.map((page, index) => (
             <div key={index} className="page">
@@ -215,11 +262,11 @@ export default function FlipBook() {
                   </div>
                   <button
                     onClick={handleStartOver}
-                    className="start-over-btn flex items-center gap-2 px-8 py-4 bg-[#8B7355] text-white border-none rounded-xl font-sans text-lg font-semibold cursor-pointer shadow-lg transition-all hover:bg-[#A0522D] hover:-translate-y-0.5 hover:shadow-xl active:translate-y-0 active:shadow-md z-10 mt-4"
+                    className="start-over-btn flex items-center gap-2 px-6 py-3 sm:px-8 sm:py-4 bg-[#8B7355] text-white border-none rounded-xl font-sans text-base sm:text-lg font-semibold cursor-pointer shadow-lg transition-all hover:bg-[#A0522D] hover:-translate-y-0.5 hover:shadow-xl active:translate-y-0 active:shadow-md z-10 mt-4 touch-manipulation"
                     aria-label="Start over from the beginning"
                   >
                     <svg
-                      className="w-6 h-6 animate-spin-slow"
+                      className="w-5 h-5 sm:w-6 sm:h-6 animate-spin-slow"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -240,15 +287,15 @@ export default function FlipBook() {
         </div>
 
         {/* Navigation Controls */}
-        <div className="navigation-controls flex items-center justify-center gap-8 mt-6 py-4">
+        <div className="navigation-controls flex items-center justify-center gap-4 sm:gap-8 mt-6 py-4">
           <button
             id="prev-btn"
             onClick={handlePrevPage}
             disabled={currentPage === 0}
-            className="nav-button w-12 h-12 border-2 border-[#E8DFD0] bg-white rounded-full flex items-center justify-center cursor-pointer transition-all text-[#8B7355] shadow-sm hover:bg-[#8B7355] hover:text-white hover:border-[#8B7355] hover:shadow-md hover:scale-105 active:scale-95 disabled:opacity-30 disabled:cursor-not-allowed"
+            className="nav-button w-10 h-10 sm:w-12 sm:h-12 border-2 border-[#E8DFD0] bg-white rounded-full flex items-center justify-center cursor-pointer transition-all text-[#8B7355] shadow-sm hover:bg-[#8B7355] hover:text-white hover:border-[#8B7355] hover:shadow-md hover:scale-105 active:scale-95 disabled:opacity-30 disabled:cursor-not-allowed touch-manipulation"
             aria-label="Previous page"
           >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
           </button>
@@ -271,10 +318,10 @@ export default function FlipBook() {
             id="next-btn"
             onClick={handleNextPage}
             disabled={currentPage >= totalPages - 1}
-            className="nav-button w-12 h-12 border-2 border-[#E8DFD0] bg-white rounded-full flex items-center justify-center cursor-pointer transition-all text-[#8B7355] shadow-sm hover:bg-[#8B7355] hover:text-white hover:border-[#8B7355] hover:shadow-md hover:scale-105 active:scale-95 disabled:opacity-30 disabled:cursor-not-allowed"
+            className="nav-button w-10 h-10 sm:w-12 sm:h-12 border-2 border-[#E8DFD0] bg-white rounded-full flex items-center justify-center cursor-pointer transition-all text-[#8B7355] shadow-sm hover:bg-[#8B7355] hover:text-white hover:border-[#8B7355] hover:shadow-md hover:scale-105 active:scale-95 disabled:opacity-30 disabled:cursor-not-allowed touch-manipulation"
             aria-label="Next page"
           >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
           </button>
@@ -300,6 +347,12 @@ export default function FlipBook() {
           max-width: 1100px;
           margin: 0 auto;
           padding: 0;
+        }
+
+        @media (max-width: 767px) {
+          .book-wrapper {
+            max-width: 100%;
+          }
         }
 
         .stf__parent {
@@ -367,6 +420,18 @@ export default function FlipBook() {
           position: relative;
           overflow-y: auto;
           overflow-x: hidden;
+        }
+
+        @media (max-width: 767px) {
+          .content-page {
+            padding: 2rem 1.5rem;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .content-page {
+            padding: 1.5rem 1rem;
+          }
         }
 
         .content-page::before {
