@@ -65,33 +65,33 @@ export const weddingPages: WeddingPage[] = [
     type: 'verse',
     content: {
       lines: [
-        'On November\'s twenty-second bright morn,',
-        'At eleven, a new joy will be born.',
-        'With turmeric blessings, life we adorn,',
-        'In yellow and green, let spirits be drawn.',
+        'A splash of yellow, a sacred embrace,',
+        'Turmeric blessings light each face.',
+        'With joy and hues of green so bright,',
+        'We gather to bathe the bride and groom in light.',
       ],
-      details: 'Join us at 11:00 AM at the Pool Deck, Waltair Club, followed by lunch.',
+      details: '(22nd Nov 2025, 11:00 AM ? Haldi at Pool Deck, Waltair Club. Lunch follows. Attire: Yellows and Greens.)',
     },
   },
  
-  // Page 11: Dinner Image
+  // Page 7: Evening Dinner Image
   {
     type: 'image',
     content: '/assets/images/dinner.png',
-    alt: 'Dinner Reception',
+    alt: 'Evening Dinner',
   },
   
-  // Page 12: Dinner Details
+  // Page 8: Evening Dinner Details
   {
     type: 'verse',
     content: {
       lines: [
-        'As evening falls on this blessed day,',
-        'At seven, we gather, come what may.',
-        'With feast and joy, in grand array,',
-        'Celebrate with us, in every way.',
+        'As twilight falls, the royal hues bloom,',
+        'With laughter and warmth in every room.',
+        'At The Crown, under chandeliers\' gleam,',
+        'We dine and rejoice, living the dream.',
       ],
-      details: 'Join us at 7:00 PM at Waltair Club for the dinner reception.',
+      details: '(22nd Nov 2025, 7:00 PM ? Venue: The Crown, Welcome Hotel. Attire: Royal Hues. Followed by dinner.)',
     },
   },
   
@@ -107,33 +107,33 @@ export const weddingPages: WeddingPage[] = [
     type: 'verse',
     content: {
       lines: [
-        'On November\'s twenty-fourth day so fine,',
-        'At seven thirty, our hearts entwine.',
-        'With sacred vows and blessings divine,',
-        'Two souls as one, forever shine.',
+        'Amid blooming flowers, vows are made,',
+        'Promises whispered, traditions displayed.',
+        'At Sai Priya\'s embrace so true,',
+        'Two souls unite, old made anew.',
       ],
-      details: 'Join us at 7:30 AM at Waltair Club for the wedding ceremony.',
+      details: '(23rd Nov 2025, 10:58 AM ? Venue: Sai Priya Resorts, Vizag. Attire: Traditional. Followed by lunch.)',
     },
   },
   
-  // Page 7: Vratham Image
+  // Page 11: Vratham Image
   {
     type: 'image',
     content: '/assets/images/vratham.png',
-    alt: 'Vratham Ceremony',
+    alt: 'Sri Satyanarayana Vratham',
   },
   
-  // Page 8: Vratham Details
+  // Page 12: Vratham Details
   {
     type: 'verse',
     content: {
       lines: [
-        'On the twenty-third, at seven in the eve,',
-        'Sacred rituals, blessings we receive.',
-        'With prayers and chants, our hearts believe,',
-        'In love and faith, we shall achieve.',
+        'In prayerful calm beneath mango\'s shade,',
+        'Blessings unfold, memories made.',
+        'With hearts aligned and spirits free,',
+        'We seek blessings for prosperity.',
       ],
-      details: 'Join us at 7:00 PM at Waltair Club, followed by dinner.',
+      details: '(25th Nov 2025, 10:30 AM ? Venue: Mango Meadows, Gowrelly, Hyderabad. Attire: Traditional. Followed by lunch.)',
     },
   },
  
@@ -149,11 +149,12 @@ export const weddingPages: WeddingPage[] = [
     type: 'outro',
     content: {
       lines: [
-        'So come and join, with blessings bright,',
-        'And fill our days with love and light.',
-        'Your presence makes our future right,',
-        'A truly unforgettable sight.',
+        'Peacocks dance as flowers fall,',
+        'Love and joy embrace us all.',
+        'Come bless the pair with heartfelt cheer,',
+        'As they step forward, year to year.',
       ],
+      details: '(We warmly invite family and friends to join in love, tradition, and celebration. Your presence will make these moments truly special.)',
     },
   },
 ];
