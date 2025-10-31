@@ -13,14 +13,14 @@ export const weddingPages: WeddingPage[] = [
   // Page 0: Blank cover (hidden)
   {
     type: 'image',
-    content: '',
+    content: '/assets/images/intro.png',
     alt: 'Cover',
   },
   
   // Page 1: Intro Image (Left)
   {
     type: 'image',
-    content: '/assets/images/intro.png',
+    content: '/assets/images/cover.png',
     alt: 'Wedding Invitation',
   },
   
@@ -73,25 +73,25 @@ export const weddingPages: WeddingPage[] = [
       details: 'Join us at 11:00 AM at the Pool Deck, Waltair Club, followed by lunch.',
     },
   },
-  
-  // Page 7: Vratham Image
+ 
+  // Page 11: Dinner Image
   {
     type: 'image',
-    content: '/assets/images/vratham.png',
-    alt: 'Vratham Ceremony',
+    content: '/assets/images/dinner.png',
+    alt: 'Dinner Reception',
   },
   
-  // Page 8: Vratham Details
+  // Page 12: Dinner Details
   {
     type: 'verse',
     content: {
       lines: [
-        'On the twenty-third, at seven in the eve,',
-        'Sacred rituals, blessings we receive.',
-        'With prayers and chants, our hearts believe,',
-        'In love and faith, we shall achieve.',
+        'As evening falls on this blessed day,',
+        'At seven, we gather, come what may.',
+        'With feast and joy, in grand array,',
+        'Celebrate with us, in every way.',
       ],
-      details: 'Join us at 7:00 PM at Waltair Club, followed by dinner.',
+      details: 'Join us at 7:00 PM at Waltair Club for the dinner reception.',
     },
   },
   
@@ -116,27 +116,27 @@ export const weddingPages: WeddingPage[] = [
     },
   },
   
-  // Page 11: Dinner Image
+  // Page 7: Vratham Image
   {
     type: 'image',
-    content: '/assets/images/dinner.png',
-    alt: 'Dinner Reception',
+    content: '/assets/images/vratham.png',
+    alt: 'Vratham Ceremony',
   },
   
-  // Page 12: Dinner Details
+  // Page 8: Vratham Details
   {
     type: 'verse',
     content: {
       lines: [
-        'As evening falls on this blessed day,',
-        'At seven, we gather, come what may.',
-        'With feast and joy, in grand array,',
-        'Celebrate with us, in every way.',
+        'On the twenty-third, at seven in the eve,',
+        'Sacred rituals, blessings we receive.',
+        'With prayers and chants, our hearts believe,',
+        'In love and faith, we shall achieve.',
       ],
-      details: 'Join us at 7:00 PM at Waltair Club for the dinner reception.',
+      details: 'Join us at 7:00 PM at Waltair Club, followed by dinner.',
     },
   },
-  
+ 
   // Page 13: End Image
   {
     type: 'image',
