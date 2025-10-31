@@ -1,0 +1,8 @@
+name = "wedding-invitation"
+compatibility_date = "2025-10-31"
+
+[site]
+bucket = "."
+
+# This is a static site - no build needed
+# Cloudflare Pages will serve the files directly
