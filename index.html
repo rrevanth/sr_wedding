@@ -3,535 +3,227 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Join us in celebrating the wedding of Revanth Revoori and Sravya Pandiri. November 22-25, 2025 in Vizag and Hyderabad.">
-    <meta name="keywords" content="wedding invitation, Revanth, Sravya, Indian wedding, modern elegant">
-    <meta name="author" content="Revanth & Sravya">
+    <meta name="description" content="Wedding Invitation - Join us in celebrating our special day">
+    <title>Wedding Invitation</title>
     
-    <!-- Open Graph / Facebook / WhatsApp -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="">
-    <meta property="og:title" content="Revanth & Sravya - Wedding Invitation">
-    <meta property="og:description" content="Join us in celebrating love, tradition, and togetherness. November 22-25, 2025">
-    <meta property="og:image" content="">
-    
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="">
-    <meta property="twitter:title" content="Revanth & Sravya - Wedding Invitation">
-    <meta property="twitter:description" content="Join us in celebrating love, tradition, and togetherness. November 22-25, 2025">
-    <meta property="twitter:image" content="">
-    
-    <title>Revanth & Sravya - Wedding Invitation</title>
-    
-    <!-- Favicon -->
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💍</text></svg>">
-    
-    <!-- Google Fonts - Elegant & Refined -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Tangerine:wght@400;700&family=Italiana&family=Noto+Sans+Devanagari:wght@400;600&family=Noto+Sans+Telugu:wght@400;600&display=swap" rel="stylesheet">
+    <!-- Preload critical assets -->
+    <link rel="preload" href="assets/images/font.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="assets/images/intro.png" as="image">
     
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="css/reset.css">
-    <link rel="stylesheet" href="css/variables.css">
-    <link rel="stylesheet" href="css/typography.css">
-    <link rel="stylesheet" href="css/traditional-art.css">
-    <link rel="stylesheet" href="css/layout.css">
-    <link rel="stylesheet" href="css/components.css">
-    <link rel="stylesheet" href="css/animations.css">
-    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/flipbook.css">
 </head>
 <body>
-    <!-- Audio Control -->
-    <div class="audio-control" id="audioControl">
-        <button id="audioToggle" class="audio-toggle" aria-label="Play/Pause music">
-            <svg class="play-icon" width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
-                <path d="M6 4l10 6-10 6V4z"/>
-            </svg>
-            <svg class="pause-icon hidden" width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
-                <path d="M6 4h3v12H6V4zm5 0h3v12h-3V4z"/>
-            </svg>
-        </button>
-        <input type="range" id="volumeControl" class="volume-slider" min="0" max="100" value="50" aria-label="Volume control">
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <p class="loading-text">Loading your invitation...</p>
+        </div>
     </div>
 
-    <!-- Hero Section -->
-    <section class="hero" id="hero">
-        <div class="hero-background">
-            <div class="hero-pattern"></div>
-            <div class="hero-gradient"></div>
-        </div>
-        
-        <div class="hero-content">
-            <p class="hero-subtitle fade-in-up" data-delay="0">You Are Cordially Invited to Celebrate</p>
-            
-            <div class="couple-names-container fade-in-up" data-delay="200">
-                <h1 class="couple-names">
-                    <span class="groom-name">Revanth</span>
-                    <span class="ampersand">&</span>
-                    <span class="bride-name">Sravya</span>
-                </h1>
-                <div class="elegant-underline"></div>
-            </div>
-            
-            <div class="parents-names fade-in-up" data-delay="400">
-                <p class="parent-line">Son of Sharabesham and Vasantha Revoori</p>
-                <p class="parent-line">&</p>
-                <p class="parent-line">Daughter of Vidyasagar and Rama Pandiri</p>
-            </div>
-            
-            <div class="date-range fade-in-up" data-delay="600">
-                <p class="date-text">November 22 - 25, 2025</p>
-                <p class="location-text">Vizag & Hyderabad</p>
-            </div>
-            
-            <div class="countdown-container fade-in-up" data-delay="800">
-                <div class="countdown" id="countdown">
-                    <div class="countdown-item">
-                        <span class="countdown-value" id="days">0</span>
-                        <span class="countdown-label">Days</span>
-                    </div>
-                    <div class="countdown-item">
-                        <span class="countdown-value" id="hours">0</span>
-                        <span class="countdown-label">Hours</span>
-                    </div>
-                    <div class="countdown-item">
-                        <span class="countdown-value" id="minutes">0</span>
-                        <span class="countdown-label">Minutes</span>
-                    </div>
-                    <div class="countdown-item">
-                        <span class="countdown-value" id="seconds">0</span>
-                        <span class="countdown-label">Seconds</span>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="scroll-indicator fade-in-up" data-delay="1000">
-                <div class="scroll-icon">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M12 5v14M5 12l7 7 7-7"/>
-                    </svg>
-                </div>
-                <p class="scroll-text">Scroll to explore</p>
-            </div>
-        </div>
-    </section>
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1 class="header-title">You're Invited</h1>
+            <p class="header-subtitle">Join us in celebrating our special day</p>
+        </header>
 
-    <!-- Save the Date Card -->
-    <section class="save-the-date" id="saveTheDate">
-        <div class="container">
-            <div class="save-date-card glass-card">
-                <div class="card-icon">
-                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                        <line x1="16" y1="2" x2="16" y2="6"></line>
-                        <line x1="8" y1="2" x2="8" y2="6"></line>
-                        <line x1="3" y1="10" x2="21" y2="10"></line>
+        <!-- Flipbook Container -->
+        <div class="flipbook-container">
+            <div id="book" class="book-wrapper">
+                    <!-- Page 0: Intro Image (Left) -->
+                    <div class="page">
+                        <div class="page-content">
+                            <img src="assets/images/intro.png" alt="Wedding Invitation" class="page-image">
+                        </div>
+                    </div>
+                    
+                    <!-- Page 1: Intro Image (Left) -->
+                    <div class="page">
+                        <div class="page-content">
+                            <img src="assets/images/intro.png" alt="Wedding Invitation" class="page-image">
+                        </div>
+                    </div>
+
+                    <!-- Page 2: Intro Text (Right) -->
+                    <div class="page">
+                        <div class="page-content content-page intro-content">
+                            <div class="intro-text">
+                                <h1 class="intro-title">Revoori</h1>
+                                <h2 class="intro-subtitle">Wedding Invitation</h2>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Page 3: Our Story Image -->
+                    <div class="page">
+                        <div class="page-content">
+                            <img src="assets/images/intro2.png" alt="Our Story" class="page-image">
+                        </div>
+                    </div>
+                    
+                    <!-- Page 3: Our Story Verse -->
+                    <div class="page">
+                        <div class="page-content content-page">
+                            <div class="verse">
+                                <p>Sharabesham and Vasantha's dear son, Revanth,</p>
+                                <p>With Sravya, Vidyasagar and Rama's grant,</p>
+                                <p>A new life's journey they have now begun,</p>
+                                <p>Join us for joy, with love's sweet chant.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Page 4: Haldi Image -->
+                    <div class="page">
+                        <div class="page-content">
+                            <img src="assets/images/haldi.png" alt="Haldi Ceremony" class="page-image">
+                        </div>
+                    </div>
+                    
+                    <!-- Page 5: Haldi Details -->
+                    <div class="page">
+                        <div class="page-content content-page">
+                            <div class="verse">
+                                <p>On November's twenty-second bright morn,</p>
+                                <p>At eleven, a new joy will be born.</p>
+                                <p>With turmeric blessings, life we adorn,</p>
+                                <p>In yellow and green, let spirits be drawn.</p>
+                            </div>
+                            <div class="details">
+                                <p>Join us at 11:00 AM at the Pool Deck, Waltair Club, followed by lunch.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Page 6: Wedding Image -->
+                    <div class="page">
+                        <div class="page-content">
+                            <img src="assets/images/wedding.png" alt="Wedding Ceremony" class="page-image">
+                        </div>
+                    </div>
+                    
+                    <!-- Page 7: Wedding Details -->
+                    <div class="page">
+                        <div class="page-content content-page">
+                            <div class="verse">
+                                <p>On the twenty-third, a sacred vow,</p>
+                                <p>At ten fifty-eight, beneath the bough.</p>
+                                <p>At Sai Priya Resorts, here and now,</p>
+                                <p>Two souls unite, with a graceful bow.</p>
+                            </div>
+                            <div class="details">
+                                <p>The wedding ceremony at 10:58 AM at Sai Priya Resorts will be followed by lunch.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Page 8: Vratham Image -->
+                    <div class="page">
+                        <div class="page-content">
+                            <img src="assets/images/vratham.png" alt="Vratham Ceremony" class="page-image">
+                        </div>
+                    </div>
+                    
+                    <!-- Page 9: Vratham Details -->
+                    <div class="page">
+                        <div class="page-content content-page">
+                            <div class="verse">
+                                <p>On the twenty-fifth, with hearts so true,</p>
+                                <p>At ten-thirty, in skies of blue.</p>
+                                <p>A sacred Vratham, fresh and new,</p>
+                                <p>At Mango Meadows, for me and you.</p>
+                            </div>
+                            <div class="details">
+                                <p>The Sri Satyanarayana Vratham at 10:30 AM at Mango Meadows will be followed by lunch.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Page 10: Dinner Image -->
+                    <div class="page">
+                        <div class="page-content">
+                            <img src="assets/images/dinner.png" alt="Dinner Reception" class="page-image">
+                        </div>
+                    </div>
+                    
+                    <!-- Page 11: Dinner Details -->
+                    <div class="page">
+                        <div class="page-content content-page">
+                            <div class="verse">
+                                <p>When evening stars begin to gleam,</p>
+                                <p>At seven, we'll share a royal dream.</p>
+                                <p>At The Crown, a joyful, flowing stream,</p>
+                                <p>A dinner grand, a wondrous theme.</p>
+                            </div>
+                            <div class="details">
+                                <p>Join us at 7:00 PM at The Crown, Welcome Hotel, for dinner.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Page 12: End Image -->
+                    <div class="page">
+                        <div class="page-content">
+                            <img src="assets/images/end.png" alt="Thank You" class="page-image">
+                        </div>
+                    </div>
+                    
+                    <!-- Page 13: Outro Verse -->
+                    <div class="page">
+                        <div class="page-content content-page outro-content">
+                            <div class="verse outro-verse">
+                                <p>So come and join, with blessings bright,</p>
+                                <p>And fill our days with love and light.</p>
+                                <p>Your presence makes our future right,</p>
+                                <p>A truly unforgettable sight.</p>
+                            </div>
+                            <button class="start-over-btn" id="start-over-btn" aria-label="Start over from the beginning">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path>
+                                    <path d="M21 3v5h-5"></path>
+                                    <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"></path>
+                                </svg>
+                                <span>Start Over</span>
+                            </button>
+                        </div>
+                    </div>
+            </div>
+
+            <!-- Navigation Controls -->
+            <div class="navigation-controls">
+                <button class="nav-button nav-button-prev" id="prev-btn" aria-label="Previous page">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="15 18 9 12 15 6"></polyline>
                     </svg>
+                </button>
+                
+                <div class="page-indicators" id="page-indicators">
+                    <!-- Dots will be dynamically generated -->
                 </div>
-                <h2 class="card-title">Save the Date</h2>
-                <p class="card-description">Join us for four days of celebration, tradition, and joy</p>
-                <button class="cta-button" onclick="document.getElementById('events').scrollIntoView({behavior: 'smooth'})">
-                    View Events
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                
+                <button class="nav-button nav-button-next" id="next-btn" aria-label="Next page">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="9 18 15 12 9 6"></polyline>
                     </svg>
                 </button>
             </div>
         </div>
-    </section>
 
-    <!-- Events Section -->
-    <section class="events" id="events">
-        <div class="container">
-            <h2 class="section-title">Celebration Events</h2>
-            <p class="section-subtitle">Join us for these special moments</p>
-            
-            <!-- Haldi Ceremony -->
-            <div class="event-card haldi-event" data-event="haldi">
-                <div class="event-background"></div>
-                <div class="event-content">
-                    <div class="event-icon">
-                        <svg width="64" height="64" viewBox="0 0 100 100" fill="none">
-                            <circle cx="50" cy="50" r="12" fill="currentColor"/>
-                            <circle cx="50" cy="30" r="15" fill="currentColor" opacity="0.8"/>
-                            <circle cx="70" cy="50" r="15" fill="currentColor" opacity="0.8"/>
-                            <circle cx="50" cy="70" r="15" fill="currentColor" opacity="0.8"/>
-                            <circle cx="30" cy="50" r="15" fill="currentColor" opacity="0.8"/>
-                        </svg>
-                    </div>
-                    <h3 class="event-name">Haldi Ceremony</h3>
-                    <div class="event-details">
-                        <div class="detail-row">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                                <line x1="16" y1="2" x2="16" y2="6"></line>
-                                <line x1="8" y1="2" x2="8" y2="6"></line>
-                                <line x1="3" y1="10" x2="21" y2="10"></line>
-                            </svg>
-                            <span>Saturday, November 22, 2025</span>
-                        </div>
-                        <div class="detail-row">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="12" cy="12" r="10"></circle>
-                                <polyline points="12 6 12 12 16 14"></polyline>
-                            </svg>
-                            <span>11:00 AM</span>
-                        </div>
-                        <div class="detail-row">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                                <circle cx="12" cy="10" r="3"></circle>
-                            </svg>
-                            <span>Pool Deck, Waltair Club, Vizag</span>
-                        </div>
-                        <div class="detail-row dress-code">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M20.38 3.46L16 2a4 4 0 01-8 0L3.62 3.46a2 2 0 00-1.34 2.23l.58 3.47a1 1 0 00.99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 002-2V10h2.15a1 1 0 00.99-.84l.58-3.47a2 2 0 00-1.34-2.23z"></path>
-                            </svg>
-                            <div class="dress-code-content">
-                                <span>Traditional attire in yellows and greens</span>
-                                <div class="color-swatches">
-                                    <span class="color-swatch" style="background: #F4A460;"></span>
-                                    <span class="color-swatch" style="background: #FFB347;"></span>
-                                    <span class="color-swatch" style="background: #8B9556;"></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="detail-row note">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="12" cy="12" r="10"></circle>
-                                <line x1="12" y1="16" x2="12" y2="12"></line>
-                                <line x1="12" y1="8" x2="12.01" y2="8"></line>
-                            </svg>
-                            <span>Followed by lunch</span>
-                        </div>
-                    </div>
-                    <div class="event-actions">
-                        <button class="action-button add-calendar" data-event="haldi">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                                <line x1="16" y1="2" x2="16" y2="6"></line>
-                                <line x1="8" y1="2" x2="8" y2="6"></line>
-                                <line x1="3" y1="10" x2="21" y2="10"></line>
-                                <line x1="12" y1="14" x2="12" y2="18"></line>
-                                <line x1="10" y1="16" x2="14" y2="16"></line>
-                            </svg>
-                            Add to Calendar
-                        </button>
-                        <button class="action-button view-map" data-location="Waltair Club, Vizag">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                                <circle cx="12" cy="10" r="3"></circle>
-                            </svg>
-                            View Map
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Evening Dinner -->
-            <div class="event-card dinner-event" data-event="dinner">
-                <div class="event-background"></div>
-                <div class="event-content">
-                    <div class="event-icon">
-                        <svg width="64" height="64" viewBox="0 0 80 80" fill="none">
-                            <ellipse cx="40" cy="50" rx="30" ry="10" fill="currentColor" opacity="0.8"/>
-                            <path d="M40 40 L35 50 L45 50 Z" fill="currentColor"/>
-                            <ellipse cx="40" cy="30" rx="5" ry="15" fill="currentColor" opacity="0.6"/>
-                        </svg>
-                    </div>
-                    <h3 class="event-name">Evening Dinner Celebration</h3>
-                    <div class="event-details">
-                        <div class="detail-row">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                                <line x1="16" y1="2" x2="16" y2="6"></line>
-                                <line x1="8" y1="2" x2="8" y2="6"></line>
-                                <line x1="3" y1="10" x2="21" y2="10"></line>
-                            </svg>
-                            <span>Saturday, November 22, 2025</span>
-                        </div>
-                        <div class="detail-row">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="12" cy="12" r="10"></circle>
-                                <polyline points="12 6 12 12 16 14"></polyline>
-                            </svg>
-                            <span>7:00 PM</span>
-                        </div>
-                        <div class="detail-row">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                                <circle cx="12" cy="10" r="3"></circle>
-                            </svg>
-                            <span>The Crown, Welcome Hotel, Vizag</span>
-                        </div>
-                        <div class="detail-row dress-code">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M20.38 3.46L16 2a4 4 0 01-8 0L3.62 3.46a2 2 0 00-1.34 2.23l.58 3.47a1 1 0 00.99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 002-2V10h2.15a1 1 0 00.99-.84l.58-3.47a2 2 0 00-1.34-2.23z"></path>
-                            </svg>
-                            <div class="dress-code-content">
-                                <span>Royal hues - Elegant evening wear</span>
-                                <div class="color-swatches">
-                                    <span class="color-swatch" style="background: #4A1942;"></span>
-                                    <span class="color-swatch" style="background: #E6D5E8;"></span>
-                                    <span class="color-swatch" style="background: #F4E4C1;"></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="detail-row note">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="12" cy="12" r="10"></circle>
-                                <line x1="12" y1="16" x2="12" y2="12"></line>
-                                <line x1="12" y1="8" x2="12.01" y2="8"></line>
-                            </svg>
-                            <span>Dinner service</span>
-                        </div>
-                    </div>
-                    <div class="event-actions">
-                        <button class="action-button add-calendar" data-event="dinner">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                                <line x1="16" y1="2" x2="16" y2="6"></line>
-                                <line x1="8" y1="2" x2="8" y2="6"></line>
-                                <line x1="3" y1="10" x2="21" y2="10"></line>
-                                <line x1="12" y1="14" x2="12" y2="18"></line>
-                                <line x1="10" y1="16" x2="14" y2="16"></line>
-                            </svg>
-                            Add to Calendar
-                        </button>
-                        <button class="action-button view-map" data-location="The Crown, Welcome Hotel, Vizag">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                                <circle cx="12" cy="10" r="3"></circle>
-                            </svg>
-                            View Map
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Wedding Ceremony -->
-            <div class="event-card wedding-event" data-event="wedding">
-                <div class="event-background"></div>
-                <div class="event-content">
-                    <div class="event-icon">
-                        <svg width="64" height="64" viewBox="0 0 100 120" fill="none">
-                            <ellipse cx="50" cy="70" rx="35" ry="40" fill="currentColor" opacity="0.8"/>
-                            <rect x="45" y="60" width="10" height="15" fill="currentColor" opacity="0.9"/>
-                            <circle cx="50" cy="35" r="18" fill="currentColor"/>
-                            <path d="M40 35 Q45 20 50 15 Q55 20 60 35" fill="currentColor" opacity="0.6"/>
-                        </svg>
-                    </div>
-                    <h3 class="event-name">Wedding Ceremony</h3>
-                    <div class="event-details">
-                        <div class="detail-row">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                                <line x1="16" y1="2" x2="16" y2="6"></line>
-                                <line x1="8" y1="2" x2="8" y2="6"></line>
-                                <line x1="3" y1="10" x2="21" y2="10"></line>
-                            </svg>
-                            <span>Sunday, November 23, 2025</span>
-                        </div>
-                        <div class="detail-row muhurat">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="12" cy="12" r="10"></circle>
-                                <polyline points="12 6 12 12 16 14"></polyline>
-                            </svg>
-                            <span><strong>Muhurat:</strong> 10:58 AM</span>
-                        </div>
-                        <div class="detail-row">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                                <circle cx="12" cy="10" r="3"></circle>
-                            </svg>
-                            <span>Sai Priya Resorts, Vizag</span>
-                        </div>
-                        <div class="detail-row dress-code">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M20.38 3.46L16 2a4 4 0 01-8 0L3.62 3.46a2 2 0 00-1.34 2.23l.58 3.47a1 1 0 00.99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 002-2V10h2.15a1 1 0 00.99-.84l.58-3.47a2 2 0 00-1.34-2.23z"></path>
-                            </svg>
-                            <div class="dress-code-content">
-                                <span>Traditional wedding attire</span>
-                                <div class="color-swatches">
-                                    <span class="color-swatch" style="background: #800020;"></span>
-                                    <span class="color-swatch" style="background: #CFB53B;"></span>
-                                    <span class="color-swatch" style="background: #FFE4E1;"></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="detail-row note">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="12" cy="12" r="10"></circle>
-                                <line x1="12" y1="16" x2="12" y2="12"></line>
-                                <line x1="12" y1="8" x2="12.01" y2="8"></line>
-                            </svg>
-                            <span>Sacred rituals followed by lunch</span>
-                        </div>
-                    </div>
-                    <div class="event-actions">
-                        <button class="action-button add-calendar" data-event="wedding">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                                <line x1="16" y1="2" x2="16" y2="6"></line>
-                                <line x1="8" y1="2" x2="8" y2="6"></line>
-                                <line x1="3" y1="10" x2="21" y2="10"></line>
-                                <line x1="12" y1="14" x2="12" y2="18"></line>
-                                <line x1="10" y1="16" x2="14" y2="16"></line>
-                            </svg>
-                            Add to Calendar
-                        </button>
-                        <button class="action-button view-map" data-location="Sai Priya Resorts, Vizag">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                                <circle cx="12" cy="10" r="3"></circle>
-                            </svg>
-                            View Map
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Vratham -->
-            <div class="event-card vratham-event" data-event="vratham">
-                <div class="event-background"></div>
-                <div class="event-content">
-                    <div class="event-icon">
-                        <svg width="64" height="64" viewBox="0 0 120 120" fill="none">
-                            <ellipse cx="60" cy="70" rx="25" ry="12" fill="currentColor" opacity="0.6"/>
-                            <ellipse cx="60" cy="65" rx="20" ry="10" fill="currentColor" opacity="0.7"/>
-                            <ellipse cx="60" cy="60" rx="15" ry="8" fill="currentColor" opacity="0.8"/>
-                            <circle cx="60" cy="60" r="8" fill="currentColor"/>
-                        </svg>
-                    </div>
-                    <h3 class="event-name">Sri Satyanarayana Swamy Vratham</h3>
-                    <div class="event-details">
-                        <div class="detail-row">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                                <line x1="16" y1="2" x2="16" y2="6"></line>
-                                <line x1="8" y1="2" x2="8" y2="6"></line>
-                                <line x1="3" y1="10" x2="21" y2="10"></line>
-                            </svg>
-                            <span>Tuesday, November 25, 2025</span>
-                        </div>
-                        <div class="detail-row">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="12" cy="12" r="10"></circle>
-                                <polyline points="12 6 12 12 16 14"></polyline>
-                            </svg>
-                            <span>10:30 AM</span>
-                        </div>
-                        <div class="detail-row">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                                <circle cx="12" cy="10" r="3"></circle>
-                            </svg>
-                            <span>Mango Meadows, Gowrelly, Hyderabad</span>
-                        </div>
-                        <div class="detail-row dress-code">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M20.38 3.46L16 2a4 4 0 01-8 0L3.62 3.46a2 2 0 00-1.34 2.23l.58 3.47a1 1 0 00.99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 002-2V10h2.15a1 1 0 00.99-.84l.58-3.47a2 2 0 00-1.34-2.23z"></path>
-                            </svg>
-                            <div class="dress-code-content">
-                                <span>Traditional attire</span>
-                                <div class="color-swatches">
-                                    <span class="color-swatch" style="background: #FF9933;"></span>
-                                    <span class="color-swatch" style="background: #FFFFFF; border: 1px solid #ddd;"></span>
-                                    <span class="color-swatch" style="background: #FFD700;"></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="detail-row note">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="12" cy="12" r="10"></circle>
-                                <line x1="12" y1="16" x2="12" y2="12"></line>
-                                <line x1="12" y1="8" x2="12.01" y2="8"></line>
-                            </svg>
-                            <span>Spiritual blessings followed by lunch</span>
-                        </div>
-                    </div>
-                    <div class="event-actions">
-                        <button class="action-button add-calendar" data-event="vratham">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                                <line x1="16" y1="2" x2="16" y2="6"></line>
-                                <line x1="8" y1="2" x2="8" y2="6"></line>
-                                <line x1="3" y1="10" x2="21" y2="10"></line>
-                                <line x1="12" y1="14" x2="12" y2="18"></line>
-                                <line x1="10" y1="16" x2="14" y2="16"></line>
-                            </svg>
-                            Add to Calendar
-                        </button>
-                        <button class="action-button view-map" data-location="Mango Meadows, Gowrelly, Hyderabad">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                                <circle cx="12" cy="10" r="3"></circle>
-                            </svg>
-                            View Map
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Closing Section -->
-    <section class="closing" id="closing">
-        <div class="closing-background">
-            <div class="closing-pattern"></div>
-            <div class="closing-gradient"></div>
-        </div>
-        
-        <div class="closing-content">
-            <h2 class="closing-title">Your Presence is Our Greatest Gift</h2>
-            <p class="closing-message">Join us in celebrating love, tradition, and togetherness</p>
-            
-            <div class="signature">
-                <p class="signature-text">With love and gratitude,</p>
-                <p class="signature-names">Revanth & Sravya</p>
-            </div>
-            
-            <div class="social-sharing">
-                <h3 class="sharing-title">Share Our Joy</h3>
-                <div class="share-buttons">
-                    <button class="share-button whatsapp" id="shareWhatsApp">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
-                        </svg>
-                        WhatsApp
-                    </button>
-                    <button class="share-button facebook" id="shareFacebook">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-                        </svg>
-                        Facebook
-                    </button>
-                    <button class="share-button copy" id="copyLink">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
-                            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
-                        </svg>
-                        Copy Link
-                    </button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <p class="footer-text">&copy; 2025 Revanth & Sravya. All rights reserved.</p>
-            <p class="footer-credit">Made with ❤️ for a beautiful beginning</p>
-        </div>
-    </footer>
+        <!-- Footer -->
+        <footer class="footer">
+            <p class="footer-text">We look forward to celebrating with you</p>
+            <p class="footer-hint">Use arrow keys or swipe to navigate</p>
+        </footer>
+    </div>
 
     <!-- Scripts -->
-    <script src="js/countdown.js"></script>
-    <script src="js/calendar.js"></script>
-    <script src="js/animations.js"></script>
+    <!-- StPageFlip Library -->
+    <script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.min.js"></script>
+    <script src="js/flipbook.js"></script>
     <script src="js/main.js"></script>
 </body>
 </html>

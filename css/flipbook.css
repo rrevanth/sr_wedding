@@ -1,0 +1,406 @@
+/* ============================================
+   FLIPBOOK WITH STPAGEFLIP LIBRARY
+   ============================================ */
+
+/* ============================================
+   BOOK WRAPPER
+   ============================================ */
+
+.book-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0;
+}
+
+/* StPageFlip container */
+.stf__parent {
+    margin: 0 auto;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    display: block;
+}
+
+/* Remove any extra spacing */
+.stf__parent,
+.stf__wrapper,
+.stf__block {
+    padding: 0;
+    margin: 0 auto;
+}
+
+.stf__wrapper {
+    overflow: visible !important;
+}
+
+/* StPageFlip canvas and items */
+.stf__block {
+    background: white;
+}
+
+.stf__item {
+    background: white;
+}
+
+/* Ensure content is visible in StPageFlip */
+.stf__item .page-content {
+    width: 100%;
+    height: 100%;
+}
+
+.stf__item .page-content img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* ============================================
+   PAGE STYLES
+   ============================================ */
+
+/* Individual pages */
+.page {
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.1);
+}
+
+.page-content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    position: relative;
+}
+
+/* For pages with just images */
+.page-content:not(.content-page):not(.intro-content):not(.outro-content) {
+    padding: 0;
+    margin: 0;
+}
+
+/* Page images */
+.page-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    user-select: none;
+    -webkit-user-drag: none;
+    pointer-events: none;
+}
+
+/* Ensure images load properly in StPageFlip */
+.page img {
+    max-width: 100%;
+    max-height: 100%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* ============================================
+   CONTENT PAGES (Right pages with text)
+   ============================================ */
+
+.content-page {
+    background-image: url('../assets/texture.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 3rem 2rem;
+    position: relative;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/* Add subtle overlay to ensure text readability */
+.content-page::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.85);
+    z-index: 0;
+}
+
+.content-page > * {
+    position: relative;
+    z-index: 1;
+}
+
+/* Verse styling */
+.verse {
+    font-family: var(--font-primary);
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    line-height: 1.8;
+    color: var(--color-text-primary);
+    text-align: center;
+    margin-bottom: 1.5rem;
+    max-width: 95%;
+    flex-shrink: 0;
+}
+
+.verse p {
+    margin-bottom: 0.5rem;
+    font-style: italic;
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+}
+
+/* Event details styling */
+.details {
+    font-family: var(--font-secondary);
+    font-size: clamp(0.875rem, 2vw, 1rem);
+    line-height: 1.6;
+    color: var(--color-text-secondary);
+    text-align: center;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-sm);
+    max-width: 95%;
+    flex-shrink: 0;
+}
+
+.details p {
+    margin-bottom: 0;
+    font-weight: 500;
+}
+
+/* ============================================
+   INTRO & OUTRO PAGES
+   ============================================ */
+
+/* Intro Page Content */
+.intro-content {
+    background-image: url('../assets/texture.webp');
+    background-size: cover;
+    background-position: center;
+}
+
+.intro-text {
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+.intro-title {
+    font-family: var(--font-primary);
+    font-size: clamp(3rem, 8vw, 6rem);
+    color: var(--color-primary);
+    margin-bottom: 1rem;
+    font-weight: normal;
+    letter-spacing: 0.05em;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.intro-subtitle {
+    font-family: var(--font-primary);
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    color: var(--color-text-primary);
+    font-weight: normal;
+    font-style: italic;
+    letter-spacing: 0.03em;
+}
+
+/* Outro Page Content */
+.outro-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+}
+
+.outro-verse {
+    margin-bottom: 2rem;
+}
+
+/* Start Over Button */
+.start-over-btn {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    transform: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 2rem;
+    background: var(--color-primary);
+    color: var(--color-surface);
+    border: none;
+    border-radius: var(--radius-lg);
+    font-family: var(--font-secondary);
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: var(--shadow-lg);
+    transition: all var(--transition-base);
+    z-index: 10;
+    margin-top: 1rem;
+}
+
+.start-over-btn:hover {
+    background: var(--color-accent);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-xl);
+}
+
+.start-over-btn:active {
+    transform: translateY(0);
+    box-shadow: var(--shadow-md);
+}
+
+.start-over-btn svg {
+    width: 24px;
+    height: 24px;
+    animation: rotate 2s linear infinite;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.start-over-btn:hover svg {
+    animation-duration: 1s;
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
+/* Tablet */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .book-wrapper {
+        max-width: 900px;
+    }
+    
+    .verse {
+        font-size: var(--font-size-lg);
+    }
+    
+    .details {
+        font-size: var(--font-size-sm);
+    }
+    
+    .content-page {
+        padding: 2rem 1.5rem;
+    }
+}
+
+/* Mobile */
+@media (max-width: 767px) {
+    .book-wrapper {
+        max-width: 100%;
+        padding: 0;
+    }
+    
+    .content-page {
+        padding: 2rem 1rem;
+    }
+    
+    .verse {
+        font-size: var(--font-size-base);
+        margin-bottom: 1rem;
+    }
+    
+    .details {
+        font-size: var(--font-size-sm);
+        padding: 0.75rem;
+    }
+    
+    .intro-title {
+        font-size: 2.5rem;
+    }
+    
+    .intro-subtitle {
+        font-size: 1.25rem;
+    }
+    
+    .start-over-btn {
+        padding: 0.75rem 1.5rem;
+        font-size: var(--font-size-base);
+    }
+    
+    .start-over-btn svg {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+/* ============================================
+   ACCESSIBILITY
+   ============================================ */
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .stf__parent {
+        transition: none !important;
+    }
+    
+    .start-over-btn svg {
+        animation: none;
+    }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+    .page {
+        border: 2px solid #000;
+    }
+}
+
+/* ============================================
+   LOADING STATE
+   ============================================ */
+
+.page-image {
+    opacity: 1;
+    transition: opacity var(--transition-base);
+}
+
+.page-image.loaded {
+    opacity: 1;
+}
+
+/* Ensure images are visible */
+.stf__item img {
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+}
+
+/* ============================================
+   PRINT STYLES
+   ============================================ */
+
+@media print {
+    .book-wrapper {
+        max-width: 100%;
+    }
+    
+    .page {
+        page-break-after: always;
+        box-shadow: none;
+    }
+    
+    .stf__parent {
+        box-shadow: none;
+    }
+}

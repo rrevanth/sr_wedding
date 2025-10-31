@@ -1,0 +1,30 @@
+# Build outputs
+dist/
+build/
+.output/
+
+# Dependencies
+node_modules/
+
+# Environment files
+.env
+.env.local
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor directories
+.vscode/
+.idea/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Temporary files
+*.tmp
+*.temp
+
+# Documentation (keep in repo for reference)
+# None excluded

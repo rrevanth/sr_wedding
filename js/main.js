@@ -1,270 +1,277 @@
-/* ===================================
-   Main JavaScript - Modern Wedding Invitation
-   =================================== */
+/**
+ * Main Application Entry Point
+ * Initializes the flipbook and handles application-level functionality
+ */
 
-// Audio controller
-let audio = null;
-let isPlaying = false;
+// Global flipbook instance
+let flipbook = null;
 
-function initAudio() {
-    const audioToggle = document.getElementById('audioToggle');
-    const volumeControl = document.getElementById('volumeControl');
+/**
+ * Initialize the application when DOM is ready
+ */
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('Wedding Invitation App Starting...');
     
-    // Try to load audio file
-    audio = new Audio('assets/audio/classical-indian-music.mp3');
-    audio.loop = true;
-    audio.volume = 0.5;
+    // Show loading screen
+    const loadingScreen = document.getElementById('loading-screen');
     
-    // Handle audio loading errors gracefully
-    audio.addEventListener('error', () => {
-        console.log('Audio file not found. Audio controls will be hidden.');
-        const audioControl = document.getElementById('audioControl');
-        if (audioControl) {
-            audioControl.style.display = 'none';
-        }
+    // Initialize flipbook
+    flipbook = new FlipBook();
+    flipbook.init();
+    
+    // Hide loading screen after a short delay
+    setTimeout(() => {
+        console.log('Flipbook initialized successfully');
+        hideLoadingScreen();
+    }, 500);
+    
+    // Setup additional features
+    setupAdditionalFeatures();
+    
+    // Setup analytics (if needed)
+    setupAnalytics();
+});
+
+/**
+ * Hide the loading screen with animation
+ */
+function hideLoadingScreen() {
+    const loadingScreen = document.getElementById('loading-screen');
+    
+    // Add a small delay for better UX
+    setTimeout(() => {
+        loadingScreen.classList.add('hidden');
+        
+        // Remove from DOM after animation completes
+        setTimeout(() => {
+            loadingScreen.remove();
+        }, 500);
+    }, 500);
+}
+
+/**
+ * Setup additional features and enhancements
+ */
+function setupAdditionalFeatures() {
+    // Handle window resize
+    handleWindowResize();
+    
+    // Setup copy to clipboard functionality
+    setupCopyToClipboard();
+    
+    // Check for browser compatibility
+    checkBrowserCompatibility();
+}
+
+/**
+ * Handle window resize events
+ */
+function handleWindowResize() {
+    let resizeTimer;
+    
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        
+        resizeTimer = setTimeout(() => {
+            // StPageFlip handles resize automatically
+            console.log('Window resized');
+        }, 250);
     });
-    
-    // Audio toggle
-    if (audioToggle) {
-        audioToggle.addEventListener('click', () => {
-            if (isPlaying) {
-                audio.pause();
-                audioToggle.classList.remove('playing');
-                isPlaying = false;
-            } else {
-                audio.play().catch(err => {
-                    console.log('Audio playback failed:', err);
-                });
-                audioToggle.classList.add('playing');
-                isPlaying = true;
-            }
-        });
-    }
-    
-    // Volume control
-    if (volumeControl) {
-        volumeControl.addEventListener('input', (e) => {
-            audio.volume = e.target.value / 100;
-        });
-    }
 }
 
-// Map functionality
-function openMap(location) {
-    const encodedLocation = encodeURIComponent(location);
-    const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodedLocation}`;
-    window.open(googleMapsUrl, '_blank');
-}
-
-// Initialize map buttons
-function initMapButtons() {
-    const mapButtons = document.querySelectorAll('.view-map');
+/**
+ * Setup copy to clipboard functionality
+ */
+function setupCopyToClipboard() {
+    // This can be used for copying venue addresses, etc.
+    // Implementation can be added when specific content is available
     
-    mapButtons.forEach(button => {
+    const copyButtons = document.querySelectorAll('[data-copy]');
+    
+    copyButtons.forEach(button => {
         button.addEventListener('click', () => {
-            const location = button.getAttribute('data-location');
-            if (location) {
-                openMap(location);
-            }
+            const textToCopy = button.dataset.copy;
+            
+            navigator.clipboard.writeText(textToCopy)
+                .then(() => {
+                    showToast('Copied to clipboard!');
+                })
+                .catch(err => {
+                    console.error('Failed to copy:', err);
+                });
         });
     });
 }
 
-// Social sharing
-function shareOnWhatsApp() {
-    const text = 'Join us in celebrating the wedding of Revanth & Sravya! November 22-25, 2025 in Vizag and Hyderabad.';
-    const url = window.location.href;
-    const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(text + ' ' + url)}`;
-    window.open(whatsappUrl, '_blank');
-}
-
-function shareOnFacebook() {
-    const url = window.location.href;
-    const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
-    window.open(facebookUrl, '_blank');
-}
-
-function copyLink() {
-    const url = window.location.href;
+/**
+ * Show a toast notification
+ */
+function showToast(message, duration = 3000) {
+    const toast = document.createElement('div');
+    toast.className = 'toast';
+    toast.textContent = message;
     
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(url)
-            .then(() => {
-                showCopySuccess();
-            })
-            .catch(err => {
-                console.error('Failed to copy:', err);
-                fallbackCopyLink(url);
-            });
-    } else {
-        fallbackCopyLink(url);
-    }
-}
-
-function fallbackCopyLink(url) {
-    const textArea = document.createElement('textarea');
-    textArea.value = url;
-    textArea.style.position = 'fixed';
-    textArea.style.left = '-999999px';
-    document.body.appendChild(textArea);
-    textArea.focus();
-    textArea.select();
-    
-    try {
-        document.execCommand('copy');
-        showCopySuccess();
-    } catch (err) {
-        console.error('Failed to copy:', err);
-        alert('Failed to copy link. Please copy manually: ' + url);
-    }
-    
-    document.body.removeChild(textArea);
-}
-
-function showCopySuccess() {
-    const copyButton = document.getElementById('copyLink');
-    if (!copyButton) return;
-    
-    const originalHTML = copyButton.innerHTML;
-    
-    copyButton.innerHTML = `
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <polyline points="20 6 9 17 4 12"></polyline>
-        </svg>
-        Copied!
+    const style = document.createElement('style');
+    style.textContent = `
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--color-primary);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 0.5rem;
+            box-shadow: var(--shadow-lg);
+            z-index: 10000;
+            animation: slideUp 0.3s ease;
+        }
+        @keyframes slideUp {
+            from {
+                transform: translateX(-50%) translateY(100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(-50%) translateY(0);
+                opacity: 1;
+            }
+        }
     `;
-    copyButton.classList.add('success');
+    document.head.appendChild(style);
+    document.body.appendChild(toast);
     
     setTimeout(() => {
-        copyButton.innerHTML = originalHTML;
-        copyButton.classList.remove('success');
-    }, 2000);
+        toast.style.animation = 'slideUp 0.3s ease reverse';
+        setTimeout(() => {
+            toast.remove();
+            style.remove();
+        }, 300);
+    }, duration);
 }
 
-// Initialize social sharing
-function initSocialSharing() {
-    const whatsappBtn = document.getElementById('shareWhatsApp');
-    const facebookBtn = document.getElementById('shareFacebook');
-    const copyBtn = document.getElementById('copyLink');
+/**
+ * Check browser compatibility and show warnings if needed
+ */
+function checkBrowserCompatibility() {
+    // Check for 3D transform support
+    const has3DSupport = 'WebKitCSSMatrix' in window || 'MSCSSMatrix' in window;
     
-    if (whatsappBtn) {
-        whatsappBtn.addEventListener('click', shareOnWhatsApp);
+    if (!has3DSupport) {
+        console.warn('3D transforms not supported, using fallback');
     }
     
-    if (facebookBtn) {
-        facebookBtn.addEventListener('click', shareOnFacebook);
+    // Check for touch support
+    const hasTouchSupport = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    
+    if (hasTouchSupport) {
+        document.body.classList.add('touch-device');
     }
     
-    if (copyBtn) {
-        copyBtn.addEventListener('click', copyLink);
+    // Check for reduced motion preference
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    
+    if (prefersReducedMotion) {
+        console.log('Reduced motion preference detected');
+        document.body.classList.add('reduced-motion');
     }
 }
 
-// Lazy load images
-function initLazyLoading() {
-    const images = document.querySelectorAll('img[data-src]');
+/**
+ * Setup analytics tracking (optional)
+ */
+function setupAnalytics() {
+    // This is a placeholder for analytics integration
+    // You can add Google Analytics, Mixpanel, etc. here
     
-    const imageObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const img = entry.target;
-                img.src = img.dataset.src;
-                img.removeAttribute('data-src');
-                observer.unobserve(img);
-            }
-        });
+    // Track page views
+    trackEvent('page_view', {
+        page_title: document.title,
+        page_location: window.location.href
     });
     
-    images.forEach(img => imageObserver.observe(img));
+    // Track page flips
+    // This would require adding event listeners to the flipbook
 }
 
-// Preload critical resources
-function preloadResources() {
-    // Preload fonts
-    const fonts = [
-        'Cormorant Garamond',
-        'Great Vibes',
-        'Lato',
-        'Marcellus'
-    ];
+/**
+ * Track analytics events
+ */
+function trackEvent(eventName, eventData = {}) {
+    // Placeholder for analytics tracking
+    // Replace with actual analytics implementation
     
-    fonts.forEach(font => {
-        const link = document.createElement('link');
-        link.rel = 'preload';
-        link.as = 'font';
-        link.type = 'font/woff2';
-        link.crossOrigin = 'anonymous';
-        // Note: This is a placeholder. Actual font URLs would come from Google Fonts
-    });
-}
-
-// Performance monitoring
-function logPerformanceMetrics() {
-    if ('performance' in window) {
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                const perfData = window.performance.timing;
-                const pageLoadTime = perfData.loadEventEnd - perfData.navigationStart;
-                const connectTime = perfData.responseEnd - perfData.requestStart;
-                const renderTime = perfData.domComplete - perfData.domLoading;
-                
-                console.log('Performance Metrics:');
-                console.log(`Page Load Time: ${pageLoadTime}ms`);
-                console.log(`Connect Time: ${connectTime}ms`);
-                console.log(`Render Time: ${renderTime}ms`);
-            }, 0);
-        });
+    if (typeof gtag !== 'undefined') {
+        // Google Analytics
+        gtag('event', eventName, eventData);
+    } else if (typeof mixpanel !== 'undefined') {
+        // Mixpanel
+        mixpanel.track(eventName, eventData);
+    } else {
+        // Console log for development
+        console.log('Analytics Event:', eventName, eventData);
     }
 }
 
-// Error handling
-window.addEventListener('error', (e) => {
-    console.error('Global error:', e.error);
+/**
+ * Add to calendar functionality (optional enhancement)
+ */
+function addToCalendar(eventDetails) {
+    // This can be implemented using a library like add-to-calendar-button
+    // or by generating .ics files
+    
+    console.log('Add to calendar:', eventDetails);
+    showToast('Calendar feature coming soon!');
+}
+
+/**
+ * Share functionality (optional enhancement)
+ */
+function shareInvitation() {
+    if (navigator.share) {
+        navigator.share({
+            title: 'Wedding Invitation',
+            text: 'Join us in celebrating our special day!',
+            url: window.location.href
+        })
+        .then(() => console.log('Shared successfully'))
+        .catch((error) => console.log('Error sharing:', error));
+    } else {
+        // Fallback: Copy link to clipboard
+        navigator.clipboard.writeText(window.location.href)
+            .then(() => showToast('Link copied to clipboard!'))
+            .catch((error) => console.error('Error copying link:', error));
+    }
+}
+
+/**
+ * Handle errors gracefully
+ */
+window.addEventListener('error', (event) => {
+    console.error('Application error:', event.error);
+    
+    // Show user-friendly error message
+    // (Only in production, not during development)
+    if (window.location.hostname !== 'localhost') {
+        showToast('Something went wrong. Please refresh the page.');
+    }
 });
 
-window.addEventListener('unhandledrejection', (e) => {
-    console.error('Unhandled promise rejection:', e.reason);
+/**
+ * Handle unhandled promise rejections
+ */
+window.addEventListener('unhandledrejection', (event) => {
+    console.error('Unhandled promise rejection:', event.reason);
 });
 
-// Initialize everything
-function init() {
-    console.log('Initializing wedding invitation...');
-    
-    // Initialize features
-    initAudio();
-    initMapButtons();
-    initSocialSharing();
-    initLazyLoading();
-    preloadResources();
-    logPerformanceMetrics();
-    
-    // Add loaded class to body
-    document.body.classList.add('loaded');
-    
-    console.log('Wedding invitation initialized successfully!');
-}
+/**
+ * Log app initialization complete
+ */
+console.log('Wedding Invitation App Initialized Successfully');
 
-// Initialize on DOM ready
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
-} else {
-    init();
-}
-
-// Service Worker registration (optional, for PWA)
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-        // Uncomment to enable service worker
-        // navigator.serviceWorker.register('/sw.js')
-        //     .then(reg => console.log('Service Worker registered'))
-        //     .catch(err => console.log('Service Worker registration failed'));
-    });
-}
-
-// Export for use in other modules
+// Export functions for potential use in console or other scripts
 window.weddingApp = {
-    openMap,
-    shareOnWhatsApp,
-    shareOnFacebook,
-    copyLink
+    flipbook,
+    addToCalendar,
+    shareInvitation,
+    trackEvent
 };
