@@ -1,8 +1,0 @@
-name = "sr-wedding-invitation"
-compatibility_date = "2025-10-31"
-
-# Static site configuration
-pages_build_output_dir = "."
-
-[site]
-bucket = "."
